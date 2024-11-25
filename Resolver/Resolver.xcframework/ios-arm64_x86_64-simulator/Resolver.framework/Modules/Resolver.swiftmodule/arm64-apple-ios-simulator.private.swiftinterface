@@ -1,0 +1,222 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.0.2 effective-5.10 (swiftlang-6.0.2.1.2 clang-1600.0.26.4)
+// swift-module-flags: -target arm64-apple-ios11.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-bare-slash-regex -module-name Resolver
+// swift-module-flags-ignorable: -no-verify-emitted-module-interface
+import Combine
+import Swift
+import SwiftUI
+import UIKit
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+public protocol ResolverRegistering {
+  static func registerAllServices()
+}
+public protocol Resolving {
+  var resolver: Resolver { get }
+}
+extension Resolving {
+  public var resolver: Resolver {
+    get
+  }
+}
+final public class Resolver {
+  public static var main: Resolver
+  public static var root: Resolver
+  public static var defaultScope: any ResolverScope
+  public init(parent: Resolver? = nil)
+  final public func registerServices()
+  public static var registerServices: (() -> Swift.Void)?
+  public static func reset()
+  @discardableResult
+  public static func register<Service>(_ type: Service.Type = Service.self, name: Swift.String? = nil, factory: @escaping ResolverFactory<Service>) -> ResolverOptions<Service>
+  @discardableResult
+  public static func register<Service>(_ type: Service.Type = Service.self, name: Swift.String? = nil, factory: @escaping ResolverFactoryResolver<Service>) -> ResolverOptions<Service>
+  @discardableResult
+  public static func register<Service>(_ type: Service.Type = Service.self, name: Swift.String? = nil, factory: @escaping ResolverFactoryArgumentsN<Service>) -> ResolverOptions<Service>
+  @discardableResult
+  final public func register<Service>(_ type: Service.Type = Service.self, name: Swift.String? = nil, factory: @escaping ResolverFactory<Service>) -> ResolverOptions<Service>
+  @discardableResult
+  final public func register<Service>(_ type: Service.Type = Service.self, name: Swift.String? = nil, factory: @escaping ResolverFactoryResolver<Service>) -> ResolverOptions<Service>
+  @discardableResult
+  final public func register<Service>(_ type: Service.Type = Service.self, name: Swift.String? = nil, factory: @escaping ResolverFactoryArgumentsN<Service>) -> ResolverOptions<Service>
+  public static func resolve<Service>(_ type: Service.Type = Service.self, name: Swift.String? = nil, args: Any? = nil) -> Service
+  final public func resolve<Service>(_ type: Service.Type = Service.self, name: Swift.String? = nil, args: Any? = nil) -> Service
+  public static func optional<Service>(_ type: Service.Type = Service.self, name: Swift.String? = nil, args: Any? = nil) -> Service?
+  final public func optional<Service>(_ type: Service.Type = Service.self, name: Swift.String? = nil, args: Any? = nil) -> Service?
+  @objc deinit
+}
+extension Resolver {
+  public struct Args {
+    public init(_ args: Any?)
+    public func callAsFunction<T>() -> T
+    public func callAsFunction<T>(_ key: Swift.String) -> T
+    public func optional<T>() -> T?
+    public func optional<T>(_ key: Swift.String) -> T?
+    public func get<T>() -> T
+    public func get<T>(_ key: Swift.String) -> T
+  }
+}
+public typealias ResolverFactory<Service> = () -> Service?
+public typealias ResolverFactoryResolver<Service> = (_ resolver: Resolver) -> Service?
+public typealias ResolverFactoryArgumentsN<Service> = (_ resolver: Resolver, _ args: Resolver.Args) -> Service?
+public typealias ResolverFactoryMutator<Service> = (_ resolver: Resolver, _ service: Service) -> Swift.Void
+public typealias ResolverFactoryMutatorArgumentsN<Service> = (_ resolver: Resolver, _ service: Service, _ args: Resolver.Args) -> Swift.Void
+public class ResolverOptions<Service> {
+  public var scope: any ResolverScope
+  public init(resolver: Resolver)
+  @discardableResult
+  final public func implements<Protocol>(_ type: Protocol.Type, name: Swift.String? = nil) -> ResolverOptions<Service>
+  @discardableResult
+  final public func resolveProperties(_ block: @escaping ResolverFactoryMutator<Service>) -> ResolverOptions<Service>
+  @discardableResult
+  final public func resolveProperties(_ block: @escaping ResolverFactoryMutatorArgumentsN<Service>) -> ResolverOptions<Service>
+  @discardableResult
+  final public func scope(_ scope: any ResolverScope) -> ResolverOptions<Service>
+  @objc deinit
+}
+public class ResolverRegistration<Service> : ResolverOptions<Service> {
+  public var key: Swift.Int
+  public var cacheKey: Swift.String
+  public init(resolver: Resolver, key: Swift.Int, name: Swift.String?)
+  public func resolve(resolver: Resolver, args: Any?) -> Service?
+  @objc deinit
+}
+final public class ResolverRegistrationOnly<Service> : ResolverRegistration<Service> {
+  final public var factory: ResolverFactory<Service>
+  public init(resolver: Resolver, key: Swift.Int, name: Swift.String?, factory: @escaping ResolverFactory<Service>)
+  final override public func resolve(resolver: Resolver, args: Any?) -> Service?
+  @objc deinit
+}
+final public class ResolverRegistrationResolver<Service> : ResolverRegistration<Service> {
+  final public var factory: ResolverFactoryResolver<Service>
+  public init(resolver: Resolver, key: Swift.Int, name: Swift.String?, factory: @escaping ResolverFactoryResolver<Service>)
+  final override public func resolve(resolver: Resolver, args: Any?) -> Service?
+  @objc deinit
+}
+final public class ResolverRegistrationArgumentsN<Service> : ResolverRegistration<Service> {
+  final public var factory: ResolverFactoryArgumentsN<Service>
+  public init(resolver: Resolver, key: Swift.Int, name: Swift.String?, factory: @escaping ResolverFactoryArgumentsN<Service>)
+  final override public func resolve(resolver: Resolver, args: Any?) -> Service?
+  @objc deinit
+}
+extension Resolver {
+  public static let application: ResolverScopeApplication
+  public static let cached: ResolverScopeCache
+  public static let graph: ResolverScopeGraph
+  public static let shared: ResolverScopeShare
+  public static let unique: ResolverScopeUnique
+}
+public protocol ResolverScope : AnyObject {
+  func resolve<Service>(resolver: Resolver, registration: ResolverRegistration<Service>, args: Any?) -> Service?
+}
+public class ResolverScopeApplication : ResolverScope {
+  public init()
+  final public func resolve<Service>(resolver: Resolver, registration: ResolverRegistration<Service>, args: Any?) -> Service?
+  @objc deinit
+}
+@_inheritsConvenienceInitializers final public class ResolverScopeCache : ResolverScopeApplication {
+  override public init()
+  final public func reset()
+  @objc deinit
+}
+final public class ResolverScopeGraph : ResolverScope {
+  public init()
+  final public func resolve<Service>(resolver: Resolver, registration: ResolverRegistration<Service>, args: Any?) -> Service?
+  @objc deinit
+}
+final public class ResolverScopeShare : ResolverScope {
+  public init()
+  final public func resolve<Service>(resolver: Resolver, registration: ResolverRegistration<Service>, args: Any?) -> Service?
+  final public func reset()
+  @objc deinit
+}
+final public class ResolverScopeUnique : ResolverScope {
+  public init()
+  final public func resolve<Service>(resolver: Resolver, registration: ResolverRegistration<Service>, args: Any?) -> Service?
+  @objc deinit
+}
+public protocol StoryboardResolving : Resolving {
+  func resolveViewController()
+}
+extension UIKit.UIViewController {
+  @objc @_Concurrency.MainActor @preconcurrency dynamic public var resolving: Swift.Bool {
+    @objc get
+    @objc set
+  }
+}
+@propertyWrapper public struct Injected<Service> {
+  public init()
+  public init(name: Swift.String? = nil, container: Resolver? = nil)
+  public var wrappedValue: Service {
+    get
+    set
+  }
+  public var projectedValue: Injected<Service> {
+    get
+    set
+  }
+}
+@propertyWrapper public struct LazyInjected<Service> {
+  public var container: Resolver?
+  public var name: Swift.String?
+  public var args: Any?
+  public init()
+  public init(name: Swift.String? = nil, container: Resolver? = nil)
+  public var isEmpty: Swift.Bool {
+    get
+  }
+  public var wrappedValue: Service {
+    mutating get
+    set
+  }
+  public var projectedValue: LazyInjected<Service> {
+    get
+    set
+  }
+  public mutating func release()
+}
+@propertyWrapper public struct WeakLazyInjected<Service> where Service : AnyObject {
+  public var container: Resolver?
+  public var name: Swift.String?
+  public var args: Any?
+  public init()
+  public init(name: Swift.String? = nil, container: Resolver? = nil)
+  public var isEmpty: Swift.Bool {
+    get
+  }
+  public var wrappedValue: Service? {
+    mutating get
+    set
+  }
+  public var projectedValue: WeakLazyInjected<Service> {
+    get
+    set
+  }
+}
+@propertyWrapper public struct OptionalInjected<Service> {
+  public init()
+  public init(name: Swift.String? = nil, container: Resolver? = nil)
+  public var wrappedValue: Service? {
+    get
+    set
+  }
+  public var projectedValue: OptionalInjected<Service> {
+    get
+    set
+  }
+}
+@available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+@propertyWrapper @_Concurrency.MainActor @preconcurrency public struct InjectedObject<Service> : SwiftUICore.DynamicProperty where Service : Combine.ObservableObject {
+  @_Concurrency.MainActor @preconcurrency public init()
+  @_Concurrency.MainActor @preconcurrency public init(name: Swift.String? = nil, container: Resolver? = nil)
+  @_Concurrency.MainActor @preconcurrency public var wrappedValue: Service {
+    get
+    set
+  }
+  @_Concurrency.MainActor @preconcurrency public var projectedValue: SwiftUICore.ObservedObject<Service>.Wrapper {
+    get
+  }
+}
+@available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+extension InjectedObject : Swift.Sendable {}

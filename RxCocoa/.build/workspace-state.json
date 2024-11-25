@@ -1,0 +1,79 @@
+{
+  "object" : {
+    "artifacts" : [
+      {
+        "kind" : "xcframework",
+        "packageRef" : {
+          "identity" : "rxcocoa",
+          "kind" : "root",
+          "location" : "/Users/doandat/Documents/MSB/EnterpriseBanking/EnterpriseBanking/Packages/PublicLib/RxCocoa",
+          "name" : "RxCocoa"
+        },
+        "path" : "/Users/doandat/Documents/MSB/EnterpriseBanking/EnterpriseBanking/Packages/PublicLib/RxCocoa/RxCocoa.xcframework",
+        "source" : {
+          "type" : "local"
+        },
+        "targetName" : "RxCocoa"
+      },
+      {
+        "kind" : "xcframework",
+        "packageRef" : {
+          "identity" : "rxrelay",
+          "kind" : "fileSystem",
+          "location" : "/Users/doandat/Documents/MSB/EnterpriseBanking/EnterpriseBanking/Packages/PublicLib/RxRelay",
+          "name" : "RxRelay"
+        },
+        "path" : "/Users/doandat/Documents/MSB/EnterpriseBanking/EnterpriseBanking/Packages/PublicLib/RxRelay/RxRelay.xcframework",
+        "source" : {
+          "type" : "local"
+        },
+        "targetName" : "RxRelay"
+      },
+      {
+        "kind" : "xcframework",
+        "packageRef" : {
+          "identity" : "rxswift",
+          "kind" : "fileSystem",
+          "location" : "/Users/doandat/Documents/MSB/EnterpriseBanking/EnterpriseBanking/Packages/PublicLib/RxSwift",
+          "name" : "RxSwift"
+        },
+        "path" : "/Users/doandat/Documents/MSB/EnterpriseBanking/EnterpriseBanking/Packages/PublicLib/RxSwift/RxSwift.xcframework",
+        "source" : {
+          "type" : "local"
+        },
+        "targetName" : "RxSwift"
+      }
+    ],
+    "dependencies" : [
+      {
+        "basedOn" : null,
+        "packageRef" : {
+          "identity" : "rxrelay",
+          "kind" : "fileSystem",
+          "location" : "/Users/doandat/Documents/MSB/EnterpriseBanking/EnterpriseBanking/Packages/PublicLib/RxRelay",
+          "name" : "RxRelay"
+        },
+        "state" : {
+          "name" : "fileSystem",
+          "path" : "/Users/doandat/Documents/MSB/EnterpriseBanking/EnterpriseBanking/Packages/PublicLib/RxRelay"
+        },
+        "subpath" : "rxrelay"
+      },
+      {
+        "basedOn" : null,
+        "packageRef" : {
+          "identity" : "rxswift",
+          "kind" : "fileSystem",
+          "location" : "/Users/doandat/Documents/MSB/EnterpriseBanking/EnterpriseBanking/Packages/PublicLib/RxSwift",
+          "name" : "RxSwift"
+        },
+        "state" : {
+          "name" : "fileSystem",
+          "path" : "/Users/doandat/Documents/MSB/EnterpriseBanking/EnterpriseBanking/Packages/PublicLib/RxSwift"
+        },
+        "subpath" : "rxswift"
+      }
+    ]
+  },
+  "version" : 6
+}

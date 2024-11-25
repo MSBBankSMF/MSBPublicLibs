@@ -1,0 +1,24 @@
+{
+  "object" : {
+    "artifacts" : [
+      {
+        "kind" : "xcframework",
+        "packageRef" : {
+          "identity" : "resolver",
+          "kind" : "root",
+          "location" : "/Users/doandat/Documents/MSB/EnterpriseBanking/EnterpriseBanking/Packages/PublicLib/Resolver",
+          "name" : "Resolver"
+        },
+        "path" : "/Users/doandat/Documents/MSB/EnterpriseBanking/EnterpriseBanking/Packages/PublicLib/Resolver/Resolver.xcframework",
+        "source" : {
+          "type" : "local"
+        },
+        "targetName" : "Resolver"
+      }
+    ],
+    "dependencies" : [
+
+    ]
+  },
+  "version" : 6
+}
